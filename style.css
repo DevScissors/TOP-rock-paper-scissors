@@ -1,0 +1,9 @@
+p {
+    white-space: pre-line;
+}
+
+.icon {
+    display: flex;
+    height: 160px;
+    width: 160px;
+}
