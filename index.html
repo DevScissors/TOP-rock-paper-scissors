@@ -10,12 +10,21 @@
 </head>
 
 <body>
-    <button class="btn rockButton"><img class="rock-icon icon" src="./images/rock-hand-icon.png">Rock</button>
-    <button class="btn paperButton"><img class="paper-icon icon" src="./images/paper-hand-icon.png">Paper</button>
-    <button class="btn scissorsButton"><img class="scissors-icon icon"
-            src="./images/scissors-hand-icon.png">Scissors</button>
+    <div class="wrapper">
+        <div class="number-of-rounds">
+            Number of Rounds: <input type="text" class="roundCount" maxlength="2" size="2" max="10" />
+            <button class="btn playButton">PLAY!</button>
+        </div>
+        <div class="button-container">
+            <button class="btn rockButton"><img class="rock-icon icon" src="./images/rock-hand-icon.png">Rock</button>
+            <button class="btn paperButton"><img class="paper-icon icon"
+                    src="./images/paper-hand-icon.png">Paper</button>
+            <button class="btn scissorsButton"><img class="scissors-icon icon"
+                    src="./images/scissors-hand-icon.png">Scissors</button>
+        </div>
 
-    <div class="results"></div>
+        <div class="results"></div>
+    </div>
 </body>
 
 </html>

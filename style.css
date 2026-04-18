@@ -1,3 +1,13 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.number-of-rounds {
+    padding-bottom: 10px;
+}
+
 p {
     white-space: pre-line;
 }
