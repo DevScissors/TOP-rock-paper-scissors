@@ -14,7 +14,12 @@ paperButton.disabled = true;
 scissorsButton.disabled = true;
 
 const playButton = document.querySelector(".playButton");
-playButton.addEventListener('click', () => startGame());
+playButton.addEventListener('click', () => {
+    rockButton.classList.add('animate-fade-in');
+    paperButton.classList.add('animate-fade-in');
+    scissorsButton.classList.add('animate-fade-in');
+    startGame()
+});
 
 function startGame() {
     if (roundCountInput.value !== '') {
@@ -90,7 +95,12 @@ function checkGameOver(roundCount, roundValue) {
         const divResults = document.querySelector(".results");
         const gameOverPara = document.createElement("p");
         divResults.appendChild(gameOverPara);
-        gameOverPara.textContent += "GAME OVER! \n" + (computerScore < humanScore ? "You win! Congrats!" : "You lose! The computer beat you!");
+        gameOverPara.textContent += "GAME OVER! \n" +
+            (computerScore == humanScore ?
+                "You tied! Nobody wins!"
+                : computerScore < humanScore
+                    ? "You win! Congrats!"
+                    : "You lose! The computer beat you!");
         rockButton.disabled = true;
         paperButton.disabled = true;
         scissorsButton.disabled = true;
