@@ -14,24 +14,33 @@ paperButton.disabled = true;
 scissorsButton.disabled = true;
 
 const playButton = document.querySelector(".playButton");
+
 playButton.addEventListener('click', () => {
-    rockButton.classList.add('animate-fade-in');
-    paperButton.classList.add('animate-fade-in');
-    scissorsButton.classList.add('animate-fade-in');
-    startGame()
+    if (roundCountInput.value !== '') {
+        rockButton.classList.add('animate-fade-in');
+        paperButton.classList.add('animate-fade-in');
+        scissorsButton.classList.add('animate-fade-in');
+        startGame()
+    }
+    else {
+        alert("You have to insert the number of rounds first!");
+    }
 });
 
 function startGame() {
-    if (roundCountInput.value !== '') {
-        rockButton.disabled = false;
-        paperButton.disabled = false;
-        scissorsButton.disabled = false;
-    }
+    rockButton.disabled = false;
+    paperButton.disabled = false;
+    scissorsButton.disabled = false;
 }
 
-rockButton.addEventListener('click', () => playRound("rock", getComputerChoice()));
-paperButton.addEventListener('click', () => playRound("paper", getComputerChoice()));
-scissorsButton.addEventListener('click', () => playRound("scissors", getComputerChoice()));
+rockButton.addEventListener('click', () => playRound("Rock", getComputerChoice()));
+paperButton.addEventListener('click', () => playRound("Paper", getComputerChoice()));
+scissorsButton.addEventListener('click', () => playRound("Scissors", getComputerChoice()));
+
+const pHumanScore = document.querySelector(".human-score");
+pHumanScore.textContent = humanScore;
+const pComputerScore = document.querySelector(".computer-score");
+pComputerScore.textContent = computerScore;
 
 
 
@@ -39,24 +48,24 @@ function getComputerChoice() {
     let computerChoice = '';
     const randomNum = Math.floor(Math.random() * 3);
     if (randomNum === 0) {
-        computerChoice = "rock";
+        computerChoice = "Rock";
     }
     else if (randomNum === 1) {
-        computerChoice = "paper";
+        computerChoice = "Paper";
     }
     else {
-        computerChoice = "scissors";
+        computerChoice = "Scissors";
     }
     return computerChoice;
 }
 
 function determineWinner(humanChoice, computerChoice) {
-    if (humanChoice.toLowerCase() === computerChoice) {
+    if (humanChoice === computerChoice) {
         return 'tie';
     } else if (
-        (humanChoice.toLowerCase() === "rock" && computerChoice === "scissors") ||
-        (humanChoice.toLowerCase() === "paper" && computerChoice === "rock") ||
-        (humanChoice.toLowerCase() === "scissors" && computerChoice === "paper")
+        (humanChoice === "Rock" && computerChoice === "Scissors") ||
+        (humanChoice === "Paper" && computerChoice === "Rock") ||
+        (humanChoice === "Scissors" && computerChoice === "Paper")
     ) {
         return 'human';
     } else {
@@ -67,40 +76,51 @@ function determineWinner(humanChoice, computerChoice) {
 function updateScores(winner) {
     if (winner === 'human') {
         humanScore++;
+        pHumanScore.textContent = humanScore;
     } else if (winner === 'computer') {
         computerScore++;
+        pComputerScore.textContent = computerScore;
     }
 }
 
-function displayRoundResult(roundCount, humanChoice, computerChoice, winner, humanScore, computerScore) {
-    const divResults = document.querySelector(".results");
-    const resultPara = document.createElement("p");
+const divGameBoard = document.querySelector(".game-board");
+const divRoundNumber = document.createElement("div");
+const divRoundResult = document.createElement("div");
+const divResultsContainer = document.createElement("div");
 
-    let resultText = "Round: " + roundCount + "\n";
+function displayRoundResult(roundCount, humanChoice, computerChoice, winner) {
+    divResultsContainer.classList.add("results-container");
+    divRoundNumber.classList.add("round-count");
+    divRoundResult.classList.add("round-result");
+
+
+    divGameBoard.appendChild(divResultsContainer);
+    divResultsContainer.appendChild(divRoundNumber);
+    divResultsContainer.appendChild(divRoundResult);
+
+    divRoundNumber.textContent = "Round: " + roundCount + "\n";
     if (winner === 'tie') {
-        resultText += "It's a tie! No one wins.\n";
+        divRoundResult.textContent = "It's a tie! No one wins.\n";
     } else if (winner === 'human') {
-        resultText += humanChoice + " beats " + computerChoice + " so you win!\n";
+        divRoundResult.textContent = humanChoice + " beats " + computerChoice + " so you win!\n";
     } else {
-        resultText += computerChoice + " beats " + humanChoice + " you lose!\n";
+        divRoundResult.textContent = computerChoice + " beats " + humanChoice + " you lose!\n";
     }
-    resultText += "The score is now \nHuman: " + humanScore + " \nComputer: " + computerScore + "\n";
-
-    resultPara.textContent = resultText;
-    divResults.appendChild(resultPara);
 }
 
 function checkGameOver(roundCount, roundValue) {
     if (roundCount == roundValue) {
-        const divResults = document.querySelector(".results");
         const gameOverPara = document.createElement("p");
-        divResults.appendChild(gameOverPara);
-        gameOverPara.textContent += "GAME OVER! \n" +
-            (computerScore == humanScore ?
-                "You tied! Nobody wins!"
-                : computerScore < humanScore
-                    ? "You win! Congrats!"
-                    : "You lose! The computer beat you!");
+        gameOverPara.classList.add("game-over-results");
+        divResultsContainer.appendChild(gameOverPara);
+        if (computerScore == humanScore) {
+            gameOverPara.textContent = "GAME OVER! \n" + "You tied! Nobody wins!";
+        } else if (humanScore > computerScore) {
+            gameOverPara.textContent = "GAME OVER! \n" + "You win! Congrats!";
+        } else {
+            gameOverPara.textContent = "GAME OVER! \n" + "You lose! The computer beat you!";
+        }
+
         rockButton.disabled = true;
         paperButton.disabled = true;
         scissorsButton.disabled = true;
@@ -113,7 +133,7 @@ function playRound(humanChoice, computerChoice) {
 
     const winner = determineWinner(humanChoice, computerChoice);
     updateScores(winner);
-    displayRoundResult(roundCount, humanChoice, computerChoice, winner, humanScore, computerScore);
+    displayRoundResult(roundCount, humanChoice, computerChoice, winner);
     checkGameOver(roundCount, roundValue);
 }
 

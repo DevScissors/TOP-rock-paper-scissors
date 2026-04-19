@@ -11,19 +11,37 @@
 
 <body>
     <div class="wrapper">
-        <div class="number-of-rounds">
-            Number of Rounds: <input id="roundCount" type="text" class="roundCount" maxlength="2" size="2" max="10" />
-            <button class="btn playButton">PLAY!</button>
-        </div>
-        <div class="button-container">
-            <button class="btn rockButton"><img class="rock-icon icon" src="./images/rock-hand-icon.png">Rock</button>
-            <button class="btn paperButton"><img class="paper-icon icon"
-                    src="./images/paper-hand-icon.png">Paper</button>
-            <button class="btn scissorsButton"><img class="scissors-icon icon"
-                    src="./images/scissors-hand-icon.png">Scissors</button>
+        <div class="game-board">
+            <div class="number-of-rounds-container">
+                Number of Rounds: <input id="numberOfRounds" type="text" class="number-of-rounds" maxlength="2" size="2"
+                    max="10" />
+                <button class="btn playButton">PLAY!</button>
+            </div>
+            <div class="button-container">
+                <button class="btn rockButton"><img class="rock-icon icon"
+                        src="./images/rock-hand-icon.png">Rock</button>
+                <button class="btn paperButton"><img class="paper-icon icon"
+                        src="./images/paper-hand-icon.png">Paper</button>
+                <button class="btn scissorsButton"><img class="scissors-icon icon"
+                        src="./images/scissors-hand-icon.png">Scissors</button>
+            </div>
+            <div class="score-counts-wrapper">
+                <div class="human-score-container score-container">
+                    <span class="player-title">Human</span>
+                    <p class="human-score score"></p>
+                </div>
+                <div class="computer-score-container score-container">
+                    <span class="player-title">Computer</span>
+                    <p class="computer-score score"></p>
+                </div>
+            </div>
+            <!-- <div class="results">
+                <div class="round-count"></div>
+                <div class="round-result"></div>
+            </div> -->
         </div>
 
-        <div class="results"></div>
+
     </div>
 </body>
 

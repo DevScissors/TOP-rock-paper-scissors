@@ -8,6 +8,11 @@
     }
 }
 
+.game-board {
+    background-color: mediumblue;
+    padding: 20px;
+}
+
 .rockButton,
 .paperButton,
 .scissorsButton {
@@ -36,14 +41,66 @@
     align-items: center;
 }
 
-.number-of-rounds {
+.number-of-rounds-container {
+    color: white;
     font-size: 34px;
     padding-bottom: 10px;
 }
 
-.roundCount,
+.number-of-rounds,
 .playButton {
     font-size: 26px;
+    justify-items: center;
+}
+
+.score-counts-wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.score-counts {
+    display: flex;
+    justify-content: space-between;
+    font-size: 24px;
+}
+
+.player-title {
+    font-size: 36px;
+    color: white;
+    padding: 20px;
+}
+
+.score-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.score {
+    margin: 0;
+    font-size: 45px;
+    color: black;
+    background-color: white;
+    padding: 0 20px;
+
+}
+
+.results-container {
+    color: black;
+    font-size: 26px;
+    background-color: white;
+    margin: 20px;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+    padding: 5px;
+}
+
+.round-count,
+.round-result,
+.game-over-results {
+    text-align: center;
 }
 
 p {
