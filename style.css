@@ -101,6 +101,16 @@
 .round-result,
 .game-over-results {
     text-align: center;
+    white-space: pre-line;
+}
+
+.play-again-button-container {
+    display: flex;
+    justify-content: center;
+}
+
+.play-again-button {
+    font-size: 24px;
 }
 
 p {

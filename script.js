@@ -17,9 +17,15 @@ const playButton = document.querySelector(".playButton");
 
 playButton.addEventListener('click', () => {
     if (roundCountInput.value !== '') {
+        roundCount = 0;
+        if (divResultsContainer.parentElement) {
+            divResultsContainer.remove();
+        }
         rockButton.classList.add('animate-fade-in');
         paperButton.classList.add('animate-fade-in');
         scissorsButton.classList.add('animate-fade-in');
+        roundCountInput.disabled = true;
+        playButton.disabled = true;
         startGame()
     }
     else {
@@ -110,20 +116,41 @@ function displayRoundResult(roundCount, humanChoice, computerChoice, winner) {
 
 function checkGameOver(roundCount, roundValue) {
     if (roundCount == roundValue) {
-        const gameOverPara = document.createElement("p");
-        gameOverPara.classList.add("game-over-results");
-        divResultsContainer.appendChild(gameOverPara);
         if (computerScore == humanScore) {
-            gameOverPara.textContent = "GAME OVER! \n" + "You tied! Nobody wins!";
+            divRoundResult.textContent = "GAME OVER! \n" + "You tied! Nobody wins!";
         } else if (humanScore > computerScore) {
-            gameOverPara.textContent = "GAME OVER! \n" + "You win! Congrats!";
+            divRoundResult.textContent = "GAME OVER! \n" + "You win! Congrats!";
         } else {
-            gameOverPara.textContent = "GAME OVER! \n" + "You lose! The computer beat you!";
+            divRoundResult.textContent = "GAME OVER! \n" + "You lose! The computer beat you!";
         }
 
         rockButton.disabled = true;
         paperButton.disabled = true;
         scissorsButton.disabled = true;
+        playButton.disabled = true;
+
+        const playAgainButtonContainer = document.createElement("div");
+        playAgainButtonContainer.classList.add("play-again-button-container");
+        const playAgainButton = document.createElement("button");
+        playAgainButton.classList.add("play-again-button");
+        playAgainButton.textContent = "Play Again?";
+        divGameBoard.appendChild(playAgainButtonContainer);
+        playAgainButtonContainer.appendChild(playAgainButton);
+
+        playAgainButton.addEventListener('click', () => {
+            roundCountInput.disabled = false;
+            playButton.disabled = false;
+            roundCountInput.value = '';
+            humanScore = 0;
+            computerScore = 0;
+            roundCount = 0;
+            pHumanScore.textContent = humanScore;
+            pComputerScore.textContent = computerScore;
+            if (divResultsContainer.parentElement) {
+                divResultsContainer.remove();
+            }
+            playAgainButtonContainer.remove();
+        })
     }
 }
 
